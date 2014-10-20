@@ -1,0 +1,74 @@
+#+TITLE: Emacs Grails Projectile Mode
+
+This project provides useful [[http://grails.org][Grails]] support for Emacs in terms of navigation and commands execution.
+
+* Features
+
+- You can run pre-defined or arbitrary Grails commands for a project with easy shortcuts.
+- You can browse documentation (main documentation page, guide, apidocs).
+- Custom JVM options to pass to the Grails command are supported at a global level.
+- Custom command line options to pass to Grails by default.
+- You can use the Grails wrapper by default whenever available for a project.
+- For grails-projectile, customization group called *grails-projectile* that is accessible via =M-x customize-group=.
+- Lookup functions are available to quickly visit controllers, services, etc.
+- Menubar contributions for common commands.
+- You can create a =.grails-projectile= file at the root of the project for default project specific JVM options.
+
+* Related - Code completion
+- Eclim [[https://github.com/ervandew/eclim/issues/25][now supports Groovy]] , you'll need the [[http://eclim.org/install.html][latest Eclim]] for that.
+- I have a [[https://github.com/yveszoundi/emacs-eclim][modified version of emacs-eclim]] to hook groovy code completion.
+- TODO -> Add a screenshot and a Youtube video.
+
+* Dependencies installation
+
+It is recommended to use the [[http://www.emacswiki.org/emacs/ELPA][package system]] to install dependencies.
+You'll likely want to start with =groovy-mode=.
+
+** Projectile
+[[https://github.com/bbatsov/projectile/][Projectile]] is a nice way to manage projects in Emacs.
+=M-x package-install projectile [RET]=
+
+** Groovy mode
+[[https://github.com/Groovy-Emacs-Modes/groovy-emacs-modes][Groovy-mode]] brings you Groovy syntax highlighting.
+=M-x package-install groovy-mode [RET]=
+
+* Commands
+** Minor mode prefix
+The default key prefix is =C-c ;=. This can be changed by
+customizing the =grails-projectile-keymap-prefix= variable.
+
+** Interactive commands
+
+Below is the list of available interactive commands.
+
+| KeyBinding | Description                         |
+|------------+-------------------------------------|
+| C-c ; r d  | Refresh dependencies                |
+| C-c ; c p  | Compile project                     |
+| C-c ; c l  | Clean                               |
+| C-c ; e    | Arbitrary Grails command            |
+| C-c ; i w  | Integrate with other tools          |
+| C-c ; g a  | Generate all artifacts for a domain |
+| C-c ; g c  | Generate controller                 |
+| C-c ; g v  | Generate views                      |
+| C-c ; b a  | Browse api docs                     |
+| C-c ; b g  | Browse latest guide                 |
+| C-c ; b w  | Browse wiki docs                    |
+| C-c ; c d  | Create domain                       |
+| C-c ; c t  | Create taglib                       |
+| C-c ; c s  | Create service                      |
+| C-c ; c c  | Create controller                   |
+| C-c ; f d  | Find domain for file                |
+| C-c ; f t  | Find test for file                  |
+| C-c ; f s  | Find service for file               |
+| C-c ; f c  | Find controller for file            |
+| C-c ; l d  | Locate domain                       |
+| C-c ; l t  | Locate test                         |
+| C-c ; l s  | Locate service                      |
+| C-c ; l v  | Locate view                         |
+| C-c ; l c  | Locate controller                   |
+| C-c ; r a  | Run application                     |
+| C-c ; n a  | Create new application              |
+| C-c ; n p  | Create new plugin                   |
+| C-c ; p l  | List installed plugins              |
+| C-c ; p p  | Package a plugin                    |
