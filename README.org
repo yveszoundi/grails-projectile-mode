@@ -1,5 +1,12 @@
 #+TITLE: Emacs Grails Projectile Mode
 
+#+ATTR_HTML: title="Melpa Stable link"
+[[http://melpa-stable.org/#/grails-projectile-mode][file:http://stable.melpa.org/packages/grails-projectile-mode-badge.svg]]
+
+#+ATTR_HTML: title="Melpa link"
+[[http://melpa.org/#/grails-projectile-mode][file:http://melpa.org/packages/grails-projectile-mode-badge.svg]]
+
+[[http://melpa.org/#/grails-projectile-mode][file:http://melpa.org/packages/grails-projectile-mode.svg]] 
 This project provides useful [[http://grails.org][Grails]] support for Emacs in terms of navigation and commands execution.
 
 * Features
