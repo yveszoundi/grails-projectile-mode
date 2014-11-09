@@ -135,7 +135,23 @@
   :type 'string
   :group 'grails-projectile)
 
+;;;###autoload
+(defcustom grails-projectile-mode-hook nil
+  "*Hook called by `grails-projectile-mode'."
+  :type 'hook
+  :group 'projectile)
+
 ;;;_. Utilities
+(defun grails-projectile-root ()
+  "Returns grails root directory if this file is in a Grails project"
+  (let ((grails-project-root (projectile-project-root)))
+    (when (file-exists-p (expand-file-name "grails-app" grails-project-root))
+      grails-project-root)))
+
+(defun grails--ignore-buffer-p ()
+  "Returns t if `grails-projectile-mode' should not be enabled for the current buffer"
+  (string-match-p "\\*\\(Minibuf-[0-9]+\\|helm mini\\)\\*" (buffer-name)))
+
 (defun grails--join-lines (beg end)
   "Apply join-line over region."
   (interactive "r")
@@ -624,9 +640,14 @@
   grails-projectile-mode
   grails-projectile-on)
 
+;;;###autoload
 (defun grails-projectile-on ()
-  "Enable Grails Projectile minor mode."
-  (grails-projectile-mode 1))
+  "Enable `grails-projectile-mode' minor mode if this is a grails project."
+  (ignore-errors ;; ignore errors at startup if not in project
+    (when (and 
+	   (not (grails--ignore-buffer-p))
+	   (grails-projectile-root))
+      (grails-projectile-mode 1))))
 
 (defun grails-projectile-off ()
   "Disable Grails Projectile minor mode."
