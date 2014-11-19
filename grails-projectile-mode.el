@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2013,2014 Rimero Solutions
 
-;; Version: 1.0.0
+;; Version: 1.0.1
 ;; Keywords: grails, projectile
 ;; Author: Yves Zoundi <rimerosolutions@gmail.com>
 ;; Maintainer: Yves Zoundi
