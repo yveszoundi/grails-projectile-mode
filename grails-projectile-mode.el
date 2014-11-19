@@ -8,7 +8,7 @@
 ;; Maintainer: Yves Zoundi
 ;; Package-Requires: ((projectile "0.10.0") (emacs "24") (cl-lib "0.5"))
 ;; Contributors: The internet and people who surf it.
-;; Last updated: 2014-10-15
+;; Last updated: 2014-11-18
 
 ;; This file is not part of GNU Emacs.
 
