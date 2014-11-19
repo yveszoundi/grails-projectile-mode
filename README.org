@@ -25,7 +25,12 @@ This project provides useful [[http://grails.org][Grails]] support for Emacs in 
 
 It is recommended to use the [[http://www.emacswiki.org/emacs/ELPA][package system]] to install dependencies.
 You'll likely want to start with =groovy-mode=.
+** Set-up
+After installation, add 
+=(require 'grails-projectile-mode)=
+=(add-hook 'projectile-mode-hook 'grails-projectile-on)=
 
+to automatically enable this minor mode.
 ** Projectile
 [[https://github.com/bbatsov/projectile/][Projectile]] is a nice way to manage projects in Emacs.
 =M-x package-install projectile [RET]=
