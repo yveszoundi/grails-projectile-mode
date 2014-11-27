@@ -2,9 +2,12 @@
 
 [[http://stable.melpa.org/#/grails-projectile-mode][file:http://stable.melpa.org/packages/grails-projectile-mode-badge.svg]]  [[http://melpa.org/#/grails-projectile-mode][file:http://melpa.org/packages/grails-projectile-mode-badge.svg]]
 
+* About
+
 This project provides useful [[http://grails.org][Grails]] support for Emacs in terms of navigation and commands execution.
 
 * Table of contents							:TOC:
+ - [[#about][About]]
  - [[#screenshot								][Screenshot								]]
  - [[#grails-code-completion-information-					][Grails Code completion information 					]]
  - [[#dependencies-installation						][Dependencies installation						]]
