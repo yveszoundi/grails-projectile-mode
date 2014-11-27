@@ -16,10 +16,6 @@ This project provides useful [[http://grails.org][Grails]] support for Emacs in 
 - Menubar contributions for common commands.
 - You can create a =.grails-projectile= file at the root of the project for default project specific JVM options.
 
-* Related - Code completion
-- Eclim [[https://github.com/ervandew/eclim/issues/25][now supports Groovy]] , you'll need the [[http://eclim.org/install.html][latest Eclim]] for that.
-- I have a [[https://github.com/yveszoundi/emacs-eclim][modified version of emacs-eclim]] to hook groovy code completion.
-
 * Screenshot
 
 Below is a screenshot of =grails-projectile-mode= in action.
@@ -28,6 +24,15 @@ The menu is displayed via [[https://github.com/kai2nenobu/guide-key][guide-key]]
 #+CAPTION: Screnshot
 #+NAME:   fig:GP-01
 [[./images/screenshot.gif]]
+
+* Related - Code completion
+- Eclim [[https://github.com/ervandew/eclim/issues/25][now supports Groovy]] , you'll need the [[http://eclim.org/install.html][latest Eclim]] for that.
+- I have a [[https://github.com/yveszoundi/emacs-eclim][modified version of emacs-eclim]] to hook groovy code completion.
+
+#+CAPTION: Completion
+#+NAME:   fig:GP-02
+[[./images/completion.gif]]
+
 
 * Dependencies installation
 
