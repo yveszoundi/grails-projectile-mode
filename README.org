@@ -19,7 +19,13 @@ This project provides useful [[http://grails.org][Grails]] support for Emacs in 
 * Related - Code completion
 - Eclim [[https://github.com/ervandew/eclim/issues/25][now supports Groovy]] , you'll need the [[http://eclim.org/install.html][latest Eclim]] for that.
 - I have a [[https://github.com/yveszoundi/emacs-eclim][modified version of emacs-eclim]] to hook groovy code completion.
-- TODO -> Add a screenshot and a Youtube video.
+
+* Screenshot
+
+Below is a screenshot of =grails-projectile-mode= in action.
+The menu is displayed via [[https://github.com/kai2nenobu/guide-key][guide-key]] with the flag =guide-key/recursive-key-sequence-flag=.
+
+[[file:images/screenshot.gif][Screenshot]]
 
 * Dependencies installation
 
