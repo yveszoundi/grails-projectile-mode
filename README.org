@@ -8,30 +8,31 @@ This project provides useful [[http://grails.org][Grails]] support for Emacs in 
 
 * Table of contents							:TOC:
  - [[#about][About]]
- - [[#screenshot								][Screenshot								]]
- - [[#grails-code-completion-information-					][Grails Code completion information 					]]
- - [[#dependencies-installation						][Dependencies installation						]]
+ - [[#screenshot][Screenshot]]
+ - [[#grails-code-completion-information][Grails Code completion information]]
+ - [[#dependencies-installation][Dependencies installation]]
      - [[#set-up][Set-up]]
      - [[#projectile][Projectile]]
      - [[#groovy-mode][Groovy mode]]
- - [[#commands								][Commands								]]
+ - [[#commands][Commands]]
      - [[#minor-mode-prefix][Minor mode prefix]]
      - [[#interactive-commands][Interactive commands]]
 
-* Screenshot								
+* Screenshot
 
 Below is a screenshot of =grails-projectile-mode= in action.
 The menu is displayed via [[https://github.com/kai2nenobu/guide-key][guide-key]] with the flag =guide-key/recursive-key-sequence-flag=.
 
 [[./images/screenshot.gif]]
 
-* Grails Code completion information 					
+* Grails Code completion information
+
 - Eclim [[https://github.com/ervandew/eclim/issues/25][now supports Groovy]] , you'll need the [[http://eclim.org/install.html][latest Eclim]] for that.
 - I have a [[https://github.com/yveszoundi/emacs-eclim][modified version of emacs-eclim]] to hook groovy code completion.
 
 [[./images/completion.gif]]
 
-* Dependencies installation						
+* Dependencies installation
 
 It is recommended to use the [[http://www.emacswiki.org/emacs/ELPA][package system]] to install dependencies.
 You'll likely want to start with =groovy-mode=.
@@ -49,7 +50,7 @@ to automatically enable this minor mode.
 [[https://github.com/Groovy-Emacs-Modes/groovy-emacs-modes][Groovy-mode]] brings you Groovy syntax highlighting.
 =M-x package-install groovy-mode [RET]=
 
-* Commands								
+* Commands
 ** Minor mode prefix
 The default key prefix is =C-c ;=. This can be changed by
 customizing the =grails-projectile-keymap-prefix= variable.
