@@ -2,13 +2,13 @@
 
 ;; Copyright (C) 2013,2014 Rimero Solutions
 
-;; Version: 1.0.1
+;; Version: 1.0.2
 ;; Keywords: grails, projectile
 ;; Author: Yves Zoundi <rimerosolutions@gmail.com>
 ;; Maintainer: Yves Zoundi
 ;; Package-Requires: ((projectile "0.10.0") (emacs "24") (cl-lib "0.5"))
 ;; Contributors: The internet and people who surf it.
-;; Last updated: 2014-11-18
+;; Last updated: 2014-11-28
 
 ;; This file is not part of GNU Emacs.
 
@@ -135,23 +135,7 @@
   :type 'string
   :group 'grails-projectile)
 
-;;;###autoload
-(defcustom grails-projectile-mode-hook nil
-  "*Hook called by `grails-projectile-mode'."
-  :type 'hook
-  :group 'projectile)
-
 ;;;_. Utilities
-(defun grails-projectile-root ()
-  "Returns grails root directory if this file is in a Grails project"
-  (let ((grails-project-root (projectile-project-root)))
-    (when (file-exists-p (expand-file-name "grails-app" grails-project-root))
-      grails-project-root)))
-
-(defun grails--ignore-buffer-p ()
-  "Returns t if `grails-projectile-mode' should not be enabled for the current buffer"
-  (string-match-p "\\*\\(Minibuf-[0-9]+\\|helm mini\\)\\*" (buffer-name)))
-
 (defun grails--join-lines (beg end)
   "Apply join-line over region."
   (interactive "r")
@@ -640,14 +624,9 @@
   grails-projectile-mode
   grails-projectile-on)
 
-;;;###autoload
 (defun grails-projectile-on ()
-  "Enable `grails-projectile-mode' minor mode if this is a grails project."
-  (ignore-errors ;; ignore errors at startup if not in project
-    (when (and 
-	   (not (grails--ignore-buffer-p))
-	   (grails-projectile-root))
-      (grails-projectile-mode 1))))
+  "Enable Grails Projectile minor mode."
+  (grails-projectile-mode 1))
 
 (defun grails-projectile-off ()
   "Disable Grails Projectile minor mode."

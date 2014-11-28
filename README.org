@@ -36,7 +36,7 @@ You'll likely want to start with =groovy-mode=.
 ** Set-up
 After installation, add 
 =(require 'grails-projectile-mode)=
-=(add-hook 'projectile-mode-hook 'grails-projectile-on)=
+=(grails-projectile-global-mode t)=
 
 to automatically enable this minor mode.
 ** Projectile
