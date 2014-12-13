@@ -54,9 +54,7 @@
 
 ;;; Code:
 
-(require 'projectile)
-
-(require 'cl-lib)
+(mapc #'require '(projectile cl-lib))
 
 ;;;_. Customizations
 (defcustom grails-projectile-keymap-prefix (kbd "C-c ;")
@@ -163,12 +161,10 @@
 (defun grails-integrate-with (grails-tool-or-editor)
   "Integrate Grails with an IDE or Build System `grails-tool-or-editor'."
   (interactive
-   (let ((grails-tools-or-editors
-          '("Eclipse" "Intellij" "Textmate" "Ant" "Git")))
+   (let ((grails-tools-or-editors '("Eclipse" "Intellij" "Textmate" "Ant" "Git")))
      (list (completing-read "Select IDE or Build System: " grails-tools-or-editors))))
-  (progn
-    (let ((grails-jvm-opts ""))
-      (grails--command (concat "integrate-with --" (downcase grails-tool-or-editor))))))
+  (let ((grails-jvm-opts ""))
+    (grails--command (concat "integrate-with --" (downcase grails-tool-or-editor)))))
 
 (defun grails-wizard-new-plugin ()
   "Create a new plugin project."
@@ -181,10 +177,10 @@
   (let ((insert-default-directory  t))
     ;; Ask the user for the project folder
     (let* ((grails-project-folder (read-directory-name "Application Directory: " default-directory))
-           (app-name (read-from-minibuffer "Application Name: "))
-           (default-directory (file-name-as-directory grails-project-folder))
-           (grails-command grails-executable)
-           (grails-arguments (concat cmd " --inplace " app-name)))
+           (app-name              (read-from-minibuffer "Application Name: "))
+           (default-directory     (file-name-as-directory grails-project-folder))
+           (grails-command        grails-executable)
+           (grails-arguments      (concat cmd " --inplace " app-name)))
 
       ;; Create the project folder.
       (unless (file-exists-p default-directory)
@@ -207,37 +203,29 @@
 ;;;; File locator functions
 (defun grails--find-grails-file (grails-proj-folder pred-fn-sym file-basename &optional no-auto-open)
   "Find a Grails file in a project folder.
-
-   grails-proj-folder is the base search folder.
-   pred-fn-sym is the function to filter project files.
-   file-basename is the filename to search without extension.
-   no-auto-open Do not open the file automatically for a single result.
-"
-  (let ( (result-list (grails--find-grails-files grails-proj-folder
-                                                 file-basename
-                                                 pred-fn-sym)))
+`grails-proj-folder' is the base search folder.
+`pred-fn-sym' is the function to filter project files.
+`file-basename' is the filename to search without extension.
+`no-auto-open' Do not open the file automatically for a single result."
+  (let ((result-list (grails--find-grails-files grails-proj-folder file-basename pred-fn-sym)))
     (if result-list
         (if (= (length result-list) 1)
             (if (not no-auto-open)
                 (find-file (concat (projectile-project-root) (car result-list)))
-              (progn
-                (let ((file-list (mapcar #'(lambda(p) (concat (projectile-project-root) p)) result-list)))
-                  (let ((selected-file (completing-read "Select a file:" file-list)))
-                    (find-file selected-file)))))
-          (progn
-            (let ((file-list (mapcar #'(lambda(p) (concat (projectile-project-root) p)) result-list)))
-              (let ((selected-file (completing-read "Select a file:" file-list)))
-                (find-file selected-file)))))
+              (let* ((file-list     (mapcar #'(lambda(p) (concat (projectile-project-root) p)) result-list))
+                     (selected-file (completing-read "Select a file:" file-list)))
+                (find-file selected-file)))
+          (let* ((file-list     (mapcar #'(lambda(p) (concat (projectile-project-root) p)) result-list))
+                 (selected-file (completing-read "Select a file:" file-list)))
+            (find-file selected-file)))
       (message "No artefact found for %s in '%s'" file-basename grails-proj-folder))))
 
 (defun grails--find-grails-files (dirname file-basename pred-fn)
   "Jump to a filename from a given base folder."
-  (let ((folder-files (projectile-files-in-project-directory dirname))
-        (filtered-folder-files '()))
-    (dolist (elt folder-files)
-      (when (funcall pred-fn (file-name-base elt) file-basename)
-        (add-to-list 'filtered-folder-files elt)))
-    filtered-folder-files))
+  (let ((folder-files (projectile-files-in-project-directory dirname)))
+    (cl-loop for project-file in folder-files
+             when (funcall pred-fn (file-name-base project-file) file-basename)
+             collect project-file)))
 
 (defun grails--base-name-matches-p (value expected)
   "Match two strings."
@@ -252,12 +240,9 @@
 
 (defun grails--artefact-name-no-suffix (file-basename)
   "Return the Grails artefact name without its suffix
-
-  file-basename is the full basename of the file such as TestController.
-
-  The transformation of TestControllerSpec would remove both Spec and Controller
-  from the basename and return only Test.
-  "
+`file-basename' is the full basename of the file such as TestController.
+The transformation of TestControllerSpec would remove both Spec and Controller
+from the basename and return only Test."
   (let ((artefact-name file-basename)
         (artifact-suffixes '("Spec" "Tests" "Service" "Controller" "TagLib" "Command")))
 
@@ -269,11 +254,9 @@
 
 (defun grails--find-artefact (artefact-folder artefact-suffix &optional artefact-full-name)
   "Finds a Grails artefact in a given folder by suffix.
-
-  artefact-folder is the Grails sub-folder to look at usually inside grails-app.
-  artefact-suffix is a suffix convention such as Controller, Service when applicable.
-  artefact-full-name refers to the full basename of the file to search or the current buffer filename.
-  "
+`artefact-folder' is the Grails sub-folder to look at usually inside grails-app.
+`artefact-suffix' is a suffix convention such as Controller, Service when applicable.
+`artefact-full-name' refers to the full basename of the file to search or the current buffer filename."
   (grails--find-grails-file (grails--path-from-project-root "grails-app" artefact-folder)
                             'grails--base-name-matches-p
                             (or artefact-full-name
@@ -372,28 +355,32 @@
 
 (defun grails--get-cmd (grails-command)
   "Generate the grails command line string."
-  (let ((default-directory (expand-file-name (projectile-project-root)))
-        (grails-args (concat grails-jvm-opts " " grails-cmd-opts))
-        (grails-cmd-line grails-executable))
-
-    (when (and use-grails-wrapper-when-possible
-               (grails--wrapper-exists-p default-directory))
-      (let ((grailsw-file (concat default-directory
-                                  grails-wrapper-filename
-                                  grails-executable-suffix)))
-        (setq grails-cmd-line grailsw-file)))
-
-    (when (file-exists-p (concat default-directory grails-projectile-filename))
-      (let ((grails-projectile-file (concat default-directory grails-projectile-filename)))
-        (setq grails-args (grails--read-grails-options-projectile-file grails-projectile-file))))
-
-    (concat grails-cmd-line " " grails-output-opts " " grails-args " " grails-command)))
+  (let ((default-directory     (expand-file-name (projectile-project-root)))
+        (grails-args           (concat grails-jvm-opts " " grails-cmd-opts))
+        (grails-cmd-line       (if (and use-grails-wrapper-when-possible
+                                        (grails--wrapper-exists-p default-directory))
+                                   (concat default-directory
+                                           grails-wrapper-filename
+                                           grails-executable-suffix)
+                                 grails-executable))
+        (grails-cmd-extra-args (if (file-exists-p (concat default-directory grails-projectile-filename))
+                                   (let ((grails-projectile-file (concat default-directory
+                                                                         grails-projectile-filename)))
+                                     (grails--read-grails-options-projectile-file grails-projectile-file))
+                                 " ")))
+    (mapconcat #'identity
+               (list grails-cmd-line
+                     grails-output-opts
+                     grails-args
+                     grails-cmd-extra-args
+                     grails-command)
+               " ")))
 
 ;;;_. Main functions
 (defun grails--command (cmd)
   "Run a Grails command."
   (let ((grails-command-line (grails--get-cmd cmd))
-        (default-directory (expand-file-name (projectile-project-root))))
+        (default-directory   (expand-file-name (projectile-project-root))))
     (compilation-start grails-command-line 'compilation-mode 'grails--get-compilation-buffer-name)))
 
 (defun grails--get-compilation-buffer-name (mode)
@@ -402,8 +389,8 @@
 
 (defun grails--read-param-and-run (input-hint grails-command)
   "Read an input parameter and invoke a given Grails command."
-  (let (grails-command-argument)
-    (setq grails-command-argument (read-from-minibuffer input-hint))
+  (interactive)
+  (let ((grails-command-argument (read-from-minibuffer input-hint)))
     (grails--command (concat grails-command " " grails-command-argument))))
 
 (defun grails-generate-all ()
@@ -596,11 +583,11 @@
     ["Locate test"               grails-locate-test              t]
 
     ["--"                        'ignore                          ]
-    
+
     ["Browse API"                grails-browse-api-docs          t]
     ["Browse guide"              grails-browse-latest-guide      t]
     ["Browse wiki"               grails-browse-wiki-docs         t]
-    
+
     ["--"                        'ignore                          ]
 
     ["Installed Plugins"         grails-plugins-list-installed   t]
