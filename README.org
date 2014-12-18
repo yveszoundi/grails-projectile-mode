@@ -1,5 +1,7 @@
 #+TITLE: Emacs Grails Projectile Mode
 
+[[https://github.com/yveszoundi/grails-projectile-mode/blob/master/LICENSE][file:http://img.shields.io/badge/license-GNU%20GPLv3-blue.svg]]
+
 [[http://stable.melpa.org/#/grails-projectile-mode][file:http://stable.melpa.org/packages/grails-projectile-mode-badge.svg]]  [[http://melpa.org/#/grails-projectile-mode][file:http://melpa.org/packages/grails-projectile-mode-badge.svg]]
 
 This project provides useful [[http://grails.org][Grails]] support for Emacs in terms of navigation and commands execution.
