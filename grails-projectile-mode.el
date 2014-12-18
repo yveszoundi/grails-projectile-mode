@@ -60,8 +60,7 @@
 (defcustom grails-projectile-keymap-prefix (kbd "C-c ;")
   "Grails Projectile keymap prefix."
   :group 'grails-projectile
-  :type 'string
-  :link '(url-link :tag "Github" "https://github.com/rimerosolutions/emacs-grails-mode-ext"))
+  :type 'string)
 
 (defcustom grails-projectile-mode-line " Grails"
   "Grails projectile modeline."
