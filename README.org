@@ -24,8 +24,17 @@ The menu is displayed via [[https://github.com/kai2nenobu/guide-key][guide-key]]
 [[./images/screenshot.gif]]
 
 * Keybindings discovery support
-In order to improve usability, support has been added for [[https://github.com/mickeynp/discover.el][discover.el]].
+In order to improve usability, support has been added for [[https://github.com/mickeynp/discover.el][discover.el]] when available.
 This makes it easier to use commands without resorting that much to muscle memory.
+
+You can install =discover.el= via the =package.el=, =el-get=, =Cask= or whatever other package manager
+you may be using. When =discover.el= is found in the Emacs =load-path=, support for it will be enabled
+automatically. To use the default keybindings =grails-projectile-keymap-prefix= value, followed by the =d=
+character (=C-c ; d= is the original value), add this to your =init file=.
+
+=(grails-projectile-discover-setup-keybindings)=.
+
+Below is a screenshot of this feature.
 
 [[./images/discover.png]]
 

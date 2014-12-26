@@ -533,6 +533,14 @@ from the basename and return only Test."
 
 ;;;_. Discover integration
 (when (featurep 'discover)
+  (defun grails-projectile-discover-setup-keybindings()
+      (interactive)
+      "Add the default keybindings to show discover popups.
+The default key sequence is `grails-projectile-keymap-prefix' followed by 'd'."
+      (define-key grails-projectile-mode-map
+        (kbd (concat (key-description grails-projectile-keymap-prefix) "d"))
+        #'discover-grails-projectile-discover))
+  
   (defun grails-projectile-turn-on-discover-support ()
     (interactive)
     (defalias 'discover-grails-projectile-discover 'makey-key-mode-popup-grails-projectile-discover)
@@ -543,15 +551,7 @@ from the basename and return only Test."
     (defalias 'discover-grails-projectile-plugins  'makey-key-mode-popup-grails-projectile-discover-plugins)
     (defalias 'discover-grails-projectile-find     'makey-key-mode-popup-grails-projectile-discover-find)
     (defalias 'discover-grails-projectile-runornew 'makey-key-mode-popup-grails-projectile-discover-runornew)
-    (defalias 'discover-grails-projectile-generate 'makey-key-mode-popup-grails-projectile-discover-generate)
-
-    (defun grails-projectile-discover-setup-keybindings()
-      (interactive)
-      "Add the default keybindings to show discover popups.
-The default key sequence is `grails-projectile-keymap-prefix' followed by 'd'."
-      (define-key grails-projectile-mode-map
-        (kbd (concat (key-description grails-projectile-keymap-prefix) "d"))
-        #'discover-grails-projectile-discover))
+    (defalias 'discover-grails-projectile-generate 'makey-key-mode-popup-grails-projectile-discover-generate)    
 
     (discover-add-context-menu
      :context-menu '(grails-projectile-discover
