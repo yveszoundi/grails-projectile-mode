@@ -56,6 +56,8 @@
 ;; There is integration with discover.el when it's available for easier
 ;; navigation between commands without resorting to muscle memory for keybindings.
 
+;;; Change log: Support for discover.el
+
 ;;; Code:
 
 (mapc #'require '(projectile cl-lib))
