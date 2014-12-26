@@ -71,7 +71,7 @@ customizing the =grails-projectile-keymap-prefix= variable.
 ** Interactive commands
 
 Below is the list of available interactive commands.
-If you have ==(grails-projectile-discover-setup-keybindings)= in your =init-file=,
+If you have =(grails-projectile-discover-setup-keybindings)= in your =init-file=,
 you get the additional =C-c ; d= binding that will display a popup of available commands.
 
 | KeyBinding | Description                         |
