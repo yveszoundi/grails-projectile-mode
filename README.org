@@ -6,6 +6,7 @@ This project provides useful [[http://grails.org][Grails]] support for Emacs in 
 
 * Table of contents							:TOC:
  - [[#screenshot][Screenshot]]
+ - [[#keybindings-discovery-support][Keybindings discovery support]]
  - [[#grails-code-completion-information][Grails Code completion information]]
  - [[#dependencies-installation][Dependencies installation]]
      - [[#set-up][Set-up]]
@@ -22,12 +23,36 @@ The menu is displayed via [[https://github.com/kai2nenobu/guide-key][guide-key]]
 
 [[./images/screenshot.gif]]
 
+* Keybindings discovery support
+In order to improve usability, support has been added for [[https://github.com/mickeynp/discover.el][discover.el]] when available.
+This makes it easier to use commands without resorting that much to muscle memory.
+
+You can install =discover.el= via the =package.el=, =el-get=, =Cask= or whatever other package manager
+you may be using. When =discover.el= is found in the Emacs =load-path=, support for it will be enabled
+automatically. To use the default keybindings =grails-projectile-keymap-prefix= value, followed by the =d=
+character (=C-c ; d= is the original value), add this to your =init file=.
+
+=(grails-projectile-discover-setup-keybindings)=.
+
+Below is a screenshot of this feature.
+
+[[./images/discover.png]]
+
 * Grails Code completion information
 
 - Eclim [[https://github.com/ervandew/eclim/issues/25][now supports Groovy]] , you'll need the [[http://eclim.org/install.html][latest Eclim]] for that.
 - I have a [[https://github.com/yveszoundi/emacs-eclim][modified version of emacs-eclim]] to hook groovy code completion.
 
 [[./images/completion.gif]]
+
+* Typical workflow
+I use =Eclim= as it's convenient in terms of code completion for both Java and Groovy projects.
+
+- Create a new application via =M-x grails-projectile-wizard-new-app= or =M-x grails-projectile-wizard-new-plugin=.
+- Import the project in Eclipse via =M-x eclim-project-import=.
+- Refresh dependencies just in case =M-x grails-projectile-refresh-dependencies=.
+- Use the main =grails-projectile= commands to compile, clean or run the application.
+- Use =eclim= commands for content assist among other things with =company-mode= or =autocomplete-mode=.
 
 * Dependencies installation
 
@@ -55,6 +80,8 @@ customizing the =grails-projectile-keymap-prefix= variable.
 ** Interactive commands
 
 Below is the list of available interactive commands.
+If you have =(grails-projectile-discover-setup-keybindings)= in your =init-file=,
+you get the additional =C-c ; d= binding that will display a popup of available commands.
 
 | KeyBinding | Description                         |
 |------------+-------------------------------------|
