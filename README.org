@@ -45,6 +45,15 @@ Below is a screenshot of this feature.
 
 [[./images/completion.gif]]
 
+* Typical workflow
+I use =Eclim= as it's convenient in terms of code completion for both Java and Groovy projects.
+
+- Create a new application via =M-x grails-projectile-wizard-new-app= or =M-x grails-projectile-wizard-new-plugin=.
+- Import the project in Eclipse via =M-x eclim-project-import=.
+- Refresh dependencies just in case =M-x grails-projectile-refresh-dependencies=.
+- Use the main =grails-projectile= commands to compile, clean or run the application.
+- Use =eclim= commands for content assist among other things with =company-mode= or =autocomplete-mode=.
+
 * Dependencies installation
 
 It is recommended to use the [[http://www.emacswiki.org/emacs/ELPA][package system]] to install dependencies.
