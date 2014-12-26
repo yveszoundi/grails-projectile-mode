@@ -528,19 +528,19 @@ from the basename and return only Test."
     (defalias 'discover-grails-projectile-browse        'makey-key-mode-popup-grails-projectile-discover-browse)
     (defalias 'discover-grails-projectile-plugins       'makey-key-mode-popup-grails-projectile-discover-plugins)
     (defalias 'discover-grails-projectile-find          'makey-key-mode-popup-grails-projectile-discover-find)
-    (defalias 'discover-grails-projectile-run-or-create 'makey-key-mode-popup-grails-projectile-discover-run-or-create)
+    (defalias 'discover-grails-projectile-runornew      'makey-key-mode-popup-grails-projectile-discover-runornew)
     (defalias 'discover-grails-projectile-generate      'makey-key-mode-popup-grails-projectile-discover-generate)
 
     (discover-add-context-menu
      :context-menu '(grails-projectile-discover
                      (description "Grails Projectile commands")
                      (actions
-                      ("Execute Grails Projectile command.\n"
-                       ("s" "Main commands such as compile"           discover-grails-projectile-main)
+                      ("Execute a Grails Projectile command.\n"
+                       ("m" "Main commands such as compile"           discover-grails-projectile-main)
                        ("c" "Create artifact"                         discover-grails-projectile-create)
                        ("f" "Find resource"                           discover-grails-projectile-find)
                        ("g" "Generate related artefacts for domain"   discover-grails-projectile-generate)
-                       ("r" "Run or create application/plugin"        discover-grails-projectile-run-or-create)
+                       ("r" "Run or create new application"           discover-grails-projectile-runornew)
                        ("p" "Plugins operations"                      discover-grails-projectile-plugins)
                        ("b" "Browse documentation"                    discover-grails-projectile-browse))))
      :bind (concat (key-description grails-projectile-keymap-prefix) " d")
@@ -594,6 +594,18 @@ from the basename and return only Test."
                        ("f s" "Service"      grails-projectile-find-service-for-file)
                        ("f t" "Taglib"       grails-projectile-find-taglib-for-file)
                        ("f T" "Test"         grails-projectile-find-test-for-file))))
+     :bind "")
+
+    (discover-add-context-menu
+     :context-menu '(grails-projectile-discover-runornew
+                     (description "Run or create application")
+                     (actions
+                      ("Run"
+                       ("r" "Run application"   grails-projectile-run-app))
+		      ("New project"
+		       ("a" "Web application"      grails-projectile-wizard-new-app)
+		       ("p" "Plugin application"   grails-projectile-wizard-new-plugin))))
+		       
      :bind "")
 
     (discover-add-context-menu
