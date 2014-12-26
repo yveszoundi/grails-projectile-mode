@@ -624,9 +624,10 @@ from the basename and return only Test."
                      (actions
                       ("Create"
                        ("d" "Domain class"        grails-projectile-create-domain)
-                       ("c" "Controller"          grails-projectile-create-controller)
+                       ("c" "Controller"          grails-projectile-create-controller)                       
                        ("s" "Service"             grails-projectile-create-service)
-                       ("t" "TagLib"              grails-projectile-create-taglib))))
+                       ("t" "TagLib"              grails-projectile-create-taglib)
+		       ("u" "Unit test"           grails-projectile-create-unit-test))))
      :bind ""))
 
   (add-hook 'discover-mode-hook 'grails-projectile-turn-on-discover-support))
