@@ -6,6 +6,7 @@ This project provides useful [[http://grails.org][Grails]] support for Emacs in 
 
 * Table of contents							:TOC:
  - [[#screenshot][Screenshot]]
+ - [[#keybindings-discovery-support][Keybindings discovery support]]
  - [[#grails-code-completion-information][Grails Code completion information]]
  - [[#dependencies-installation][Dependencies installation]]
      - [[#set-up][Set-up]]
@@ -21,6 +22,12 @@ Below is a screenshot of =grails-projectile-mode= in action.
 The menu is displayed via [[https://github.com/kai2nenobu/guide-key][guide-key]] with the flag =guide-key/recursive-key-sequence-flag=.
 
 [[./images/screenshot.gif]]
+
+* Keybindings discovery support
+In order to improve usability, support has been added for [[https://github.com/mickeynp/discover.el][discover.el]].
+This makes it easier to use commands without resorting that much to muscle memory.
+
+[[./images/discover.png]]
 
 * Grails Code completion information
 

@@ -1,6 +1,6 @@
 ;;; grails-projectile-mode.el --- Grails mode with Projectile for projects management.
 
-;; Copyright (C) 2013,2014 Rimero Solutions
+;; Copyright (C) 2013-2015 Rimero Solutions
 
 ;; Version: 1.1.0
 ;; Keywords: grails, projectile
@@ -46,16 +46,28 @@
 ;; (require 'grails-projectile-mode)
 ;; (grails-projectile-global-mode t)
 ;;
-;; All the commands start with 'grails-'
+;; All the commands start with 'grails-projectile'
 ;; From a projectile managed buffer run `M-x grails-projectile-compile [RET]`
 ;; to compile your Grails application.
 ;;
 ;; To list keybindings press `C-h b` or type `M-x describe-mode`
 ;; Then search for grails-projectile-mode.
+;;
+;; There is integration with discover.el when it's available for easier
+;; navigation between commands without resorting to muscle memory for keybindings.
 
 ;;; Code:
 
 (mapc #'require '(projectile cl-lib))
+
+(defconst grails-projectile-version-info "1.1.0" "Grails Projectile version")
+
+(defun grails-projectile-version ()
+  (interactive)
+  grails-projectile-version-info)
+
+(eval-when-compile
+  (declare-function discover-add-context-menu "discover"))
 
 (defgroup grails-projectile nil
   "Projectile utilities for Grails projects."
@@ -430,12 +442,12 @@ from the basename and return only Test."
 (defun grails-projectile-create-controller ()
   "Create a Grails Controller."
   (interactive)
-  (grails-projectile--read-param-and-run "Controller Domain class:" "create-controller"))
+  (grails-projectile--read-param-and-run "Controller for class:" "create-controller"))
 
 (defun grails-projectile-create-service ()
   "Create a Grails Service."
   (interactive)
-  (grails-projectile--read-param-and-run "Service Domain class:" "create-service"))
+  (grails-projectile--read-param-and-run "Service for class:" "create-service"))
 
 (defun grails-projectile-create-taglib ()
   "Create a Grails Taglib."
@@ -523,53 +535,63 @@ from the basename and return only Test."
 (when (featurep 'discover)
   (defun grails-projectile-turn-on-discover-support ()
     (interactive)
-    (defalias 'discover-grails-projectile-main          'makey-key-mode-popup-grails-projectile-discover-main)
-    (defalias 'discover-grails-projectile-create        'makey-key-mode-popup-grails-projectile-discover-create)
-    (defalias 'discover-grails-projectile-browse        'makey-key-mode-popup-grails-projectile-discover-browse)
-    (defalias 'discover-grails-projectile-plugins       'makey-key-mode-popup-grails-projectile-discover-plugins)
-    (defalias 'discover-grails-projectile-find          'makey-key-mode-popup-grails-projectile-discover-find)
-    (defalias 'discover-grails-projectile-runornew      'makey-key-mode-popup-grails-projectile-discover-runornew)
-    (defalias 'discover-grails-projectile-generate      'makey-key-mode-popup-grails-projectile-discover-generate)
+    (defalias 'discover-grails-projectile-discover 'makey-key-mode-popup-grails-projectile-discover)
+    
+    (defalias 'discover-grails-projectile-main     'makey-key-mode-popup-grails-projectile-discover-main)
+    (defalias 'discover-grails-projectile-create   'makey-key-mode-popup-grails-projectile-discover-create)
+    (defalias 'discover-grails-projectile-browse   'makey-key-mode-popup-grails-projectile-discover-browse)
+    (defalias 'discover-grails-projectile-plugins  'makey-key-mode-popup-grails-projectile-discover-plugins)
+    (defalias 'discover-grails-projectile-find     'makey-key-mode-popup-grails-projectile-discover-find)
+    (defalias 'discover-grails-projectile-runornew 'makey-key-mode-popup-grails-projectile-discover-runornew)
+    (defalias 'discover-grails-projectile-generate 'makey-key-mode-popup-grails-projectile-discover-generate)
+
+    (defun grails-projectile-discover-setup-keybindings()
+      (interactive)
+      "Add the default keybindings to show discover popups.
+The default key sequence is `grails-projectile-keymap-prefix' followed by 'd'."
+      (define-key grails-projectile-mode-map
+        (kbd (concat (key-description grails-projectile-keymap-prefix) "d"))
+        #'discover-grails-projectile-discover))
 
     (discover-add-context-menu
      :context-menu '(grails-projectile-discover
                      (description "Grails Projectile commands")
                      (actions
                       ("Execute a Grails Projectile command.\n"
-                       ("m" "Main commands such as compile"           discover-grails-projectile-main)
+                       ("m" "Main commands(compile, clean, etc.)"     discover-grails-projectile-main)
                        ("c" "Create artifact"                         discover-grails-projectile-create)
                        ("f" "Find resource"                           discover-grails-projectile-find)
                        ("g" "Generate related artefacts for domain"   discover-grails-projectile-generate)
                        ("r" "Run or create new application"           discover-grails-projectile-runornew)
                        ("p" "Plugins operations"                      discover-grails-projectile-plugins)
                        ("b" "Browse documentation"                    discover-grails-projectile-browse))))
-     :bind (concat (key-description grails-projectile-keymap-prefix) " d")
+     :bind ""
      :mode-hook 'grails-projectile-mode-hook)
 
     (discover-add-context-menu
      :context-menu '(grails-projectile-discover-main
                      (description "Main commands")
                      (actions
-                      ("Run command"
-                       ("c" "Compile"                   grails-projectile-compile)
-                       ("C" "Clean"                     grails-projectile-clean)
-                       ("r" "Refresh dependencies"      grails-projectile-refresh-dependencies)
-		       ("i" "Integrate with"            grails-projectile-integrate-with)
-		       ("A" "Arbitrary command"         grails-projectile-icommand))))
+                      ("Main commands"
+                       ("c c" "Compile"         grails-projectile-compile)
+                       ("c C" "Clean"           grails-projectile-clean)
+                       ("c r" "Refresh"         grails-projectile-refresh-dependencies)
+                       ("i w" "Integrate"       grails-projectile-integrate-with)
+                       ("e" "Execute"           grails-projectile-icommand))))
      :bind "")
 
     (discover-add-context-menu
      :context-menu '(grails-projectile-discover-plugins
-                     (description "Plugins commands")
+                     (description "Plugins Commands")
                      (actions
-                      ("Plugins actions"
+                      ("Plugins"
                        ("l" "List installed"   grails-projectile-plugins-list-installed)
                        ("p" "Package"          grails-projectile-plugins-package-plugin))))
      :bind "")
 
     (discover-add-context-menu
      :context-menu '(grails-projectile-discover-generate
-                     (description "Generate commands")
+                     (description "Generate Commands")
                      (actions
                       ("Generate"
                        ("c" "Controller"       grails-projectile-generate-controller)
@@ -579,16 +601,16 @@ from the basename and return only Test."
 
     (discover-add-context-menu
      :context-menu '(grails-projectile-discover-find
-                     (description "Find resource")
+                     (description "Find Resource")
                      (actions
-                      ("Find artefact"
+                      ("Artefact"
                        ("l d" "Domain"       grails-projectile-locate-domain)
                        ("l c" "Controller"   grails-projectile-locate-controller)
                        ("l s" "Service"      grails-projectile-locate-service)
                        ("l t" "Taglib"       grails-projectile-locate-taglib)
                        ("l T" "Test"         grails-projectile-locate-test))
 
-                      ("Associated artefact"
+                      ("Associated Artefact"
                        ("f d" "Domain"       grails-projectile-find-domain-for-file)
                        ("f c" "Controller"   grails-projectile-find-controller-for-file)
                        ("f s" "Service"      grails-projectile-find-service-for-file)
@@ -601,18 +623,18 @@ from the basename and return only Test."
                      (description "Run or create application")
                      (actions
                       ("Run"
-                       ("r" "Run application"   grails-projectile-run-app))
-		      ("New project"
-		       ("a" "Web application"      grails-projectile-wizard-new-app)
-		       ("p" "Plugin application"   grails-projectile-wizard-new-plugin))))
-		       
+                       ("r" "Run application"           grails-projectile-run-app))
+                      ("New project"
+                       ("a" "Web application"           grails-projectile-wizard-new-app)
+                       ("p" "Plugin application"        grails-projectile-wizard-new-plugin))))
+
      :bind "")
 
     (discover-add-context-menu
      :context-menu '(grails-projectile-discover-browse
                      (description "Jump to documentation")
                      (actions
-                      ("Jump to"
+                      ("Browse documentation"
                        ("a" "API"          grails-projectile-browse-api-docs)
                        ("g" "Guide"        grails-projectile-browse-latest-guide)
                        ("w" "Wiki"         grails-projectile-browse-wiki-docs))))
@@ -624,10 +646,10 @@ from the basename and return only Test."
                      (actions
                       ("Create"
                        ("d" "Domain class"        grails-projectile-create-domain)
-                       ("c" "Controller"          grails-projectile-create-controller)                       
+                       ("c" "Controller"          grails-projectile-create-controller)
                        ("s" "Service"             grails-projectile-create-service)
                        ("t" "TagLib"              grails-projectile-create-taglib)
-		       ("u" "Unit test"           grails-projectile-create-unit-test))))
+                       ("T" "Unit test"           grails-projectile-create-unit-test))))
      :bind ""))
 
   (add-hook 'discover-mode-hook 'grails-projectile-turn-on-discover-support))
@@ -689,7 +711,7 @@ from the basename and return only Test."
     ["Run app"                   grails-projectile-run-app                  t]
     ["Clean"                     grails-projectile-clean                    t]
 
-    ["--"                        'ignore                          ]
+    ["--"                        'ignore                                     ]
 
     ["Create Domain Class"       grails-projectile-create-domain            t]
     ["Create Controller"         grails-projectile-create-controller        t]
@@ -697,7 +719,7 @@ from the basename and return only Test."
     ["Create Unit Test"          grails-projectile-create-unit-test         t]
     ["Create TagLib"             grails-projectile-create-taglib            t]
 
-    ["--"                        'ignore                          ]
+    ["--"                        'ignore                                     ]
 
     ["Find domain for file"      grails-projectile-find-domain-for-file     t]
     ["Find controller for file"  grails-projectile-find-controller-for-file t]
@@ -705,20 +727,20 @@ from the basename and return only Test."
     ["Find taglib for file"      grails-projectile-find-taglib-for-file     t]
     ["Find test for file"        grails-projectile-find-test-for-file       t]
 
-    ["--"                        'ignore                          ]
+    ["--"                        'ignore                                     ]
 
     ["Locate domain"             grails-projectile-locate-domain            t]
     ["Locate controller"         grails-projectile-locate-controller        t]
     ["Locate service"            grails-projectile-locate-service           t]
     ["Locate test"               grails-projectile-locate-test              t]
 
-    ["--"                        'ignore                          ]
+    ["--"                        'ignore                                     ]
 
     ["Browse API"                grails-projectile-browse-api-docs          t]
     ["Browse guide"              grails-projectile-browse-latest-guide      t]
     ["Browse wiki"               grails-projectile-browse-wiki-docs         t]
 
-    ["--"                        'ignore                          ]
+    ["--"                        'ignore                                     ]
 
     ["Installed Plugins"         grails-projectile-plugins-list-installed   t]
     ["Package Plugin"            grails-projectile-plugins-package-plugin   t]))
