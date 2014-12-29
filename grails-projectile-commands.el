@@ -1,3 +1,28 @@
+;;; grails-projectile-commands.el --- Functions and commands for Grails Projectile.
+
+;; Copyright (C) 2013-2015 Rimero Solutions
+
+;; Author: Yves Zoundi <rimerosolutions@gmail.com>
+
+;; This file is not part of GNU Emacs.
+
+;; This is free software; you can redistribute it and/or modify it
+;; under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 2, or (at your option)
+;; any later version.
+
+;; This is distributed in the hope that it will be useful, but WITHOUT
+;; ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+;; or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public
+;; License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs; see the file COPYING.  If not, write to the
+;; Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+;; Boston, MA 02111-1307, USA.
+
+;;; Code:
+
 (require 'grails-projectile-config)
 
 (defun grails-projectile-version ()
@@ -387,3 +412,35 @@ from the basename and return only Test."
 
 
 (provide 'grails-projectile-commands)
+
+
+
+;;; Commentary:
+
+;;  Emacs Grails mode with Projectile for project-management.
+;;    - You can run pre-defined or arbitrary Grails commans for a project.
+;;    - You can also search service, domain or controller files against the current file or project.
+;;    - You can browse documentation (wiki, guide, apidocs).
+;;    - You can search plugins by tag or query string.
+;;    - Menubar contributions if you make use of the menubar.
+;;    - The default keymap prefix is `C-c ;` (see `grails-projectile-keymap-prefix`)
+;;
+;; You can customize the mode using `M-x customize-group` [RET] grails-projectile.
+;;
+;; Add the folder containing grails-projectile-mode.el in your load-path
+;; (add-to-list 'load-path "~/.emacs.d/lisp/")
+;;
+;; (require 'grails-projectile-mode)
+;; (grails-projectile-global-mode t)
+;;
+;; All the commands start with 'grails-projectile'
+;; From a projectile managed buffer run `M-x grails-projectile-compile [RET]`
+;; to compile your Grails application.
+;;
+;; To list keybindings press `C-h b` or type `M-x describe-mode`
+;; Then search for grails-projectile-mode.
+;;
+;; There is integration with discover.el when it's available for easier
+;; navigation between commands without resorting to muscle memory for keybindings.
+
+;;; grails-projectile-commands.el ends here

@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2013-2015 Rimero Solutions
 
-;; Version: 1.1.0
+;; Version: 1.1.1
 ;; Keywords: grails, projectile
 ;; Homepage: https://github.com/yveszoundi/grails-projectile-mode
 ;; Author: Yves Zoundi <rimerosolutions@gmail.com>
@@ -56,14 +56,11 @@
 ;; There is integration with discover.el when it's available for easier
 ;; navigation between commands without resorting to muscle memory for keybindings.
 
-;;; Change log: Support for discover.el
+;;; Change log: Split package into separate files.
 
 ;;; Code:
 
 (mapc #'require '(projectile cl-lib grails-projectile-commands))
-
-;;;_. Discover integration
-
 
 ;;;_. Minor mode
 (defvar grails-projectile-mode-map
