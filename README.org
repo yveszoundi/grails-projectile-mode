@@ -56,14 +56,36 @@ I use =Eclim= as it's convenient in terms of code completion for both Java and G
 
 * Dependencies installation
 
+** Package.el
 It is recommended to use the [[http://www.emacswiki.org/emacs/ELPA][package system]] to install dependencies.
 You'll likely want to start with =groovy-mode=.
-** Set-up
-After installation, add 
-=(require 'grails-projectile-mode)=
-=(grails-projectile-global-mode t)=
 
-to automatically enable this minor mode.
+** El-get
+Add the following to your el-get-sources or user recipes
+
+: (:name grails-projectile-mode
+:  :website "https://github.com/yveszoundi/grails-projectile-mode/"
+:  :description "Grails support for Projectile."
+:  :type github:
+:  :pkgname "yveszoundi/grails-projectile-mode")
+
+** Cask
+Add the following entry to your =Cask= file within your =.emacs.d= folder.
+
+=(depends-on "grails-projectile-mode")=
+
+** Set-up
+After installation, enable this minor mode with the code below:
+
+: (require 'grails-projectile-mode)=
+: (grails-projectile-global-mode t)=
+
+If you use =discover.el= and want to integrate with it also add
+the following to your setup.
+
+: (require 'grails-projectile-discover)
+: (grails-projectile-discover-setup-keybindings)
+
 ** Projectile
 [[https://github.com/bbatsov/projectile/][Projectile]] is a nice way to manage projects in Emacs.
 =M-x package-install projectile [RET]=
