@@ -29,13 +29,13 @@
 (when (featurep 'discover)
   (mapc #'require '(discover grails-projectile-commands))
 
-  ;; (defun grails-projectile-discover-setup-keybindings()
-;;     (interactive)
-;;     "Add the default keybindings to show discover popups.
-;; The default key sequence is `grails-projectile-keymap-prefix' followed by 'd'."
-;;     (define-key grails-projectile-mode-map
-;;       (kbd (concat (key-description grails-projectile-keymap-prefix) "d"))
-;;       #'discover-grails-projectile-discover))
+  (defun grails-projectile-discover-setup-keybindings()
+    (interactive)
+    "Add the default keybindings to show discover popups.
+The default key sequence is `grails-projectile-keymap-prefix' followed by 'd'."
+    (define-key grails-projectile-mode-map
+      (kbd (concat (key-description grails-projectile-keymap-prefix) "d"))
+      #'discover-grails-projectile-discover))
 
   (defun grails-projectile-turn-on-discover-support ()
     (interactive)
@@ -61,8 +61,7 @@
                        ("r" "Run or create new application"           discover-grails-projectile-runornew)
                        ("p" "Plugins operations"                      discover-grails-projectile-plugins)
                        ("b" "Browse documentation"                    discover-grails-projectile-browse))))
-     :bind "d"
-     :prefix (key-description grails-projectile-keymap-prefix)
+     :bind ""
      :mode-hook 'grails-projectile-mode-hook)
 
     (discover-add-context-menu
