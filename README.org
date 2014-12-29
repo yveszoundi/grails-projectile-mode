@@ -67,7 +67,7 @@ Add the following to your el-get-sources or user recipes
 : (:name grails-projectile-mode
 :  :website "https://github.com/yveszoundi/grails-projectile-mode/"
 :  :description "Grails support for Projectile."
-:  :type github:
+:  :type github
 :  :pkgname "yveszoundi/grails-projectile-mode")
 
 ** Cask
