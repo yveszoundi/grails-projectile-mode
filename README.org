@@ -23,7 +23,7 @@ The menu is displayed via [[https://github.com/kai2nenobu/guide-key][guide-key]]
 
 [[./images/screenshot.gif]]
 
-* Keybindings discovery support
+* discover.el support
 In order to improve usability, support has been added for [[https://github.com/mickeynp/discover.el][discover.el]] when available.
 This makes it easier to use commands without resorting that much to muscle memory.
 
@@ -32,7 +32,7 @@ you may be using. When =discover.el= is found in the Emacs =load-path=, support 
 automatically. To use the default keybindings =grails-projectile-keymap-prefix= value, followed by the =d=
 character (=C-c ; d= is the original value), add this to your =init file=.
 
-=(grails-projectile-discover-setup-keybindings)=.
+=(require 'grails-projectile-discover)=.
 
 Below is a screenshot of this feature.
 
