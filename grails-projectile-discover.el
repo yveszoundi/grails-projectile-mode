@@ -29,7 +29,6 @@
 (when (featurep 'discover)
   (mapc #'require '(discover grails-projectile-commands))
 
-  ;;;###autoload
   (defun grails-projectile-discover-setup-keybindings()
     (interactive)
     "Add the default keybindings to show discover popups.
