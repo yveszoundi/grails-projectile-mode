@@ -32,7 +32,8 @@ you may be using. When =discover.el= is found in the Emacs =load-path=, support 
 automatically. To use the default keybindings =grails-projectile-keymap-prefix= value, followed by the =d=
 character (=C-c ; d= is the original value), add this to your =init file=.
 
-=(require 'grails-projectile-discover)=.
+: (require 'grails-projectile-discover)
+: (grails-projectile-discover-setup-keybindings)
 
 Below is a screenshot of this feature.
 
