@@ -61,7 +61,7 @@
   :type 'string
   :group 'grails-projectile)
 
-(defcustom grails-projectile-cmd-opts "--non-interactive --stacktrace"
+(defcustom grails-projectile-cmd-opts "--stacktrace"
   "Grails command line options."
   :type 'string
   :group 'grails-projectile)
