@@ -61,7 +61,7 @@
   :type 'string
   :group 'grails-projectile)
 
-(defcustom grails-projectile-cmd-opts "--stacktrace"
+(defcustom grails-projectile-cmd-opts ""
   "Grails command line options."
   :type 'string
   :group 'grails-projectile)
@@ -75,7 +75,7 @@
   :type 'string
   :group 'grails-projectile)
 
-(defcustom grails-projectile-jvm-opts "-DXmx1g"
+(defcustom grails-projectile-jvm-opts ""
   "Grails command line options"
   :type 'string
   :group 'grails-projectile)
