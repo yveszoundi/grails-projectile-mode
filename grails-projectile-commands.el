@@ -1,6 +1,6 @@
 ;;; grails-projectile-commands.el --- Functions and commands for Grails Projectile.
 
-;; Copyright (C) 2013-2015 Rimero Solutions
+;; Copyright (C) 2013-2016 Rimero Solutions and contributors.
 
 ;; Author: Yves Zoundi <rimerosolutions@gmail.com>
 

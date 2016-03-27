@@ -1,6 +1,6 @@
 ;;; grails-projectile-config.el --- Configuration for Grails Projectile.
 
-;; Copyright (C) 2013-2015 Rimero Solutions
+;; Copyright (C) 2013-2016 Rimero Solutions and contributors.
 
 ;; Author: Yves Zoundi <rimerosolutions@gmail.com>
 
@@ -23,7 +23,7 @@
 
 ;;; Code:
 
-(defconst grails-projectile-version-info "1.1.1" "Grails Projectile version")
+(defconst grails-projectile-version-info "1.1.2" "Grails Projectile version")
 
 (defgroup grails-projectile nil
   "Projectile utilities for Grails projects."

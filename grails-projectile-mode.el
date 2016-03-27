@@ -1,15 +1,15 @@
 ;;; grails-projectile-mode.el --- Grails mode with Projectile for projects management.
 
-;; Copyright (C) 2013-2015 Rimero Solutions
+;; Copyright (C) 2013-2016 Rimero Solutions and contributors.
 
-;; Version: 1.1.1
+;; Version: 1.1.2
 ;; Keywords: grails, projectile
 ;; Homepage: https://github.com/yveszoundi/grails-projectile-mode
 ;; Author: Yves Zoundi <rimerosolutions@gmail.com>
 ;; Maintainer: Yves Zoundi
 ;; Package-Requires: ((projectile "0.10.0") (emacs "24") (cl-lib "0.5"))
 ;; Contributors: The internet and people who surf it.
-;; Last updated: 2014-12-26
+;; Last updated: 2016-03-27
 
 ;; This file is not part of GNU Emacs.
 
